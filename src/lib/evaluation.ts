@@ -10,13 +10,17 @@ import { buildNarrative, determineStatus, resolveScoreCap } from './evaluation-h
 import { computeCriterionRatio } from './evaluation-ratios';
 
 function scoreCriteria(visa: VisaDefinition, signals: EvaluationSignals): CriterionScore[] {
-  return visa.criteria.map((criterion) => ({
+  const visaId = visa.id;
+  const criteria = visa.criteria;
+  const evalSignals = signals;
+
+  return criteria.map((criterion) => ({
     criterionId: criterion.id,
     weight: criterion.weight,
     ratio: computeCriterionRatio({
-      visaId: visa.id,
+      visaId,
       criterionId: criterion.id,
-      signals,
+      signals: evalSignals,
       metadata: criterion.metadata
     })
   }));

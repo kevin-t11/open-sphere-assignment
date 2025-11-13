@@ -161,7 +161,7 @@ export function EvaluationWorkflow() {
       const data = (await response.json()) as EvaluationResponse & {
         error?: string;
       };
-      // console.log(data);
+      console.log(data);
 
       if (!response.ok) {
         throw new Error(data.error || 'Unable to process evaluation');
