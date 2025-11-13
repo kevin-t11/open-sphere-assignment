@@ -229,6 +229,7 @@ export async function POST(request: Request) {
 
     if (parsedPayload.notifyApplicant) {
       await sendEvaluationEmail({
+        name: parsedPayload.applicant.name,
         to: parsedPayload.applicant.email,
         subject: `Your ${visa.name} evaluation`,
         score: evaluation.cappedScore,

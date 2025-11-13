@@ -26,7 +26,12 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} bg-background text-foreground min-h-screen font-sans antialiased`}>
         {children}
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            descriptionClassName:
+              'text-sm opacity-100 text-neutral-900 !text-neutral-900 dark:text-neutral-100 dark:!text-neutral-100'
+          }}
+        />
       </body>
     </html>
   );
