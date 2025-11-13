@@ -156,6 +156,7 @@ export function EvaluationWorkflow() {
         method: 'POST',
         body: formData
       });
+      console.log('response', response);
 
       const data = (await response.json()) as EvaluationResponse & {
         error?: string;
