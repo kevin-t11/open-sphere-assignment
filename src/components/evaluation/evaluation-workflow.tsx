@@ -156,12 +156,12 @@ export function EvaluationWorkflow() {
         method: 'POST',
         body: formData
       });
-      console.log('response', response);
+      // console.log('response', response);
 
       const data = (await response.json()) as EvaluationResponse & {
         error?: string;
       };
-      console.log(data);
+      // console.log(data);
 
       if (!response.ok) {
         throw new Error(data.error || 'Unable to process evaluation');
