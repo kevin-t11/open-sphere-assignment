@@ -10,7 +10,8 @@
     "lint:fix": "eslint --fix \"**/*.{js,jsx,ts,tsx}\"",
     "format": "bunx prettier . --write",
     "format:check": "bunx prettier . --check",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
