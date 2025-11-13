@@ -1,0 +1,40 @@
+#!/bin/sh
+set -e
+
+# ANSI color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
+
+# 1. Prevent commit if nothing is staged
+echo -e "${BLUE}🔎 Checking for staged changes...${RESET}"
+if git diff --cached --quiet; then
+  echo -e "${YELLOW}⚠️  No staged changes to commit. Aborting.${RESET}"
+  exit 1
+fi
+
+# 2. Lint & format
+echo -e "${BLUE}🔍 Running lint and format checks...${RESET}"
+if bun lint-staged && bun format:check; then
+  echo -e "${GREEN}✅ Lint and format checks passed!${RESET}"
+else
+  echo -e "${RED}❌ Lint or format checks failed. Commit aborted.${RESET}"
+  exit 1
+fi
+
+# 3. Build
+echo -e "${BLUE}🔧 Running build...${RESET}"
+if bun run build; then
+  echo -e "${GREEN}🏗️  Build completed successfully!${RESET}"
+else
+  echo -e "${RED}❌ Build failed. Commit aborted.${RESET}"
+  exit 1
+fi
+
+# 4. Final confirmation
+echo -e "${BOLD}${GREEN}🚀 Committing now – everything is fine!${RESET}"
+exit 0
