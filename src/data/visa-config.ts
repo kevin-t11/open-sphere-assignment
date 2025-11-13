@@ -280,7 +280,7 @@ export const visaCatalog: CountryVisaCatalog[] = [
     name: 'Germany',
     visas: [
       {
-        id: 'de-eu-blue-card',
+        id: 'de-eu-neutral-card',
         name: 'EU Blue Card',
         summary:
           'Residence permit for highly qualified professionals with recognised degrees and competitive salaries in Germany.',

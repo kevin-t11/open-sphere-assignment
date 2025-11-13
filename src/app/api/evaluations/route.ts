@@ -6,9 +6,15 @@ import { analyzeDocuments } from '@/lib/parsers';
 import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+
 type JsonValue = string | number | boolean | null | JsonObject | JsonValue[];
 type JsonObject = { [key: string]: JsonValue };
 
+/**
+ * A Zod preprocessor for converting a string to a number
+ * @param value - The value to convert
+ * @returns The converted number
+ */
 const numberFromString = z.preprocess((value) => {
   if (value === null || value === undefined || value === '') return undefined;
   if (typeof value === 'string') {
@@ -18,6 +24,11 @@ const numberFromString = z.preprocess((value) => {
   return value;
 }, z.number());
 
+/**
+ * A Zod preprocessor for converting a string to a boolean
+ * @param value - The value to convert
+ * @returns The converted boolean
+ */
 const booleanFromString = z.preprocess((value) => {
   if (typeof value === 'boolean') return value;
   if (typeof value === 'string') {
@@ -26,6 +37,10 @@ const booleanFromString = z.preprocess((value) => {
   return value;
 }, z.boolean());
 
+/**
+ * A Zod schema for the evaluation signals
+ * @returns The evaluation signals schema
+ */
 const signalsSchema = z
   .object({
     salaryAnnual: numberFromString.optional(),
@@ -52,6 +67,10 @@ const signalsSchema = z
   .partial()
   .default({});
 
+/**
+ * A Zod schema for the evaluation payload
+ * @returns The evaluation payload schema
+ */
 const payloadSchema = z.object({
   visaId: z.string().min(1),
   applicant: z.object({
@@ -65,11 +84,22 @@ const payloadSchema = z.object({
 
 type Payload = z.infer<typeof payloadSchema>;
 
+/**
+ * Buffer a file
+ * @param file - The file to buffer
+ * @returns The buffered file
+ */
 async function bufferFromFile(file: File) {
   const arrayBuffer = await file.arrayBuffer();
   return Buffer.from(arrayBuffer);
 }
 
+/**
+ * Aggregate the evaluation signals
+ * @param payloadSignals - The payload signals
+ * @param documents - The documents to analyze
+ * @returns The aggregated evaluation signals
+ */
 function aggregateSignals(
   payloadSignals: Payload['signals'],
   documents: ReturnType<typeof analyzeDocuments>
@@ -123,6 +153,11 @@ function aggregateSignals(
   return aggregated;
 }
 
+/**
+ * Evaluate a visa application
+ * @param request - The request object
+ * @returns The evaluation result
+ */
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();

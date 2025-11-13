@@ -1,8 +1,13 @@
-import { NextResponse } from 'next/server';
-
 import { prisma } from '@/lib/prisma';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
+/**
+ * Get the latest 100 evaluations for a partner
+ * @param request - The request object
+ * @returns The latest 100 evaluations for a partner
+ * @throws {NextResponse} - 401 if the partner API key is missing
+ */
+export async function GET(request: NextRequest): Promise<NextResponse> {
   const apiKey = request.headers.get('x-api-key');
   if (!apiKey) {
     return NextResponse.json({ error: 'Missing partner API key.' }, { status: 401 });
