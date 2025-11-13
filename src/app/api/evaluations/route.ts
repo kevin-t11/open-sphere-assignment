@@ -64,8 +64,7 @@ const signalsSchema = z
     assignmentRoleType: z.enum(['manager', 'specialist', 'trainee']).optional(),
     transferDocumentationComplete: booleanFromString.optional()
   })
-  .partial()
-  .default({});
+  .partial();
 
 /**
  * A Zod schema for the evaluation payload
@@ -79,7 +78,7 @@ const payloadSchema = z.object({
     partnerKey: z.string().optional()
   }),
   notifyApplicant: booleanFromString.default(false),
-  signals: signalsSchema
+  signals: signalsSchema.default({})
 });
 
 type Payload = z.infer<typeof payloadSchema>;
