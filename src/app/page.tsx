@@ -27,7 +27,7 @@ export default function Page() {
             <Badge
               variant="outline"
               className={cn(
-                'group mb-6 border-neutral-200 bg-neutral-300 p-2 text-sm font-medium text-neutral-700',
+                'group mb-6 border-neutral-200 bg-neutral-300 p-2 text-sm font-semibold text-neutral-700',
                 'motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-top-4 motion-safe:duration-500'
               )}>
               <span>
@@ -41,9 +41,43 @@ export default function Page() {
                 'mt-4 bg-linear-to-b from-neutral-700 via-neutral-900 to-neutral-900 bg-clip-text text-4xl font-semibold tracking-tight text-balance text-transparent sm:text-5xl lg:text-6xl',
                 'motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-4 motion-safe:delay-150 motion-safe:duration-700'
               )}>
-              Visa eligibility in minutes,
+              Visa eligibility{' '}
+              <span className="text-blue-700">
+                <span className="group mb- relative px-1.5 text-blue-600">
+                  <span className="absolute inset-0 border border-dashed border-blue-300/60 bg-blue-400/10 group-hover:bg-blue-400/15"></span>
+                  in minutes,
+                  <svg
+                    width="8"
+                    height="8"
+                    viewBox="0 0 8 8"
+                    className="absolute top-[-2px] left-[-2px] fill-blue-300">
+                    <path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z"></path>
+                  </svg>
+                  <svg
+                    width="5"
+                    height="5"
+                    viewBox="0 0 5 5"
+                    className="absolute top-[-2px] right-[-2px] fill-blue-300">
+                    <path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z"></path>
+                  </svg>
+                  <svg
+                    width="5"
+                    height="5"
+                    viewBox="0 0 5 5"
+                    className="absolute bottom-[-2px] left-[-2px] fill-blue-300">
+                    <path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z"></path>
+                  </svg>
+                  <svg
+                    width="5"
+                    height="5"
+                    viewBox="0 0 5 5"
+                    className="absolute right-[-2px] bottom-[-2px] fill-blue-300">
+                    <path d="M2 0h1v2h2v1h-2v2h-1v-2h-2v-1h2z"></path>
+                  </svg>
+                </span>
+              </span>
               <br />
-              not months
+              <span className="mt-4 inline-block">not months</span>
             </h1>
 
             <p
