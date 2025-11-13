@@ -192,10 +192,10 @@ export async function POST(request: Request) {
     );
 
     const documentAnalyses = analyzeDocuments(uploadedDocs);
-    const signals = aggregateSignals(parsedPayload.signals, documentAnalyses);
+    const evaluationSignals = aggregateSignals(parsedPayload.signals, documentAnalyses);
     const evaluation = evaluateByVisaId({
       visaId: parsedPayload.visaId,
-      signals
+      signals: evaluationSignals
     });
 
     const submissionPayload = {
@@ -203,13 +203,13 @@ export async function POST(request: Request) {
       email: parsedPayload.applicant.email,
       country: visa.country,
       visaType: visa.name,
-      salaryAnnual: signals.salaryAnnual,
-      salaryCurrency: signals.salaryCurrency
+      salaryAnnual: evaluationSignals.salaryAnnual,
+      salaryCurrency: evaluationSignals.salaryCurrency
     };
 
     const sanitizedSubmission = JSON.parse(JSON.stringify(submissionPayload)) as JsonObject;
 
-    const sanitizedSignals = JSON.parse(JSON.stringify(signals)) as JsonObject;
+    const sanitizedSignals = JSON.parse(JSON.stringify(evaluationSignals)) as JsonObject;
 
     await prisma.evaluation.create({
       data: {
